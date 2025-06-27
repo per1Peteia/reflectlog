@@ -36,6 +36,14 @@ func GenerateSchema[T any]() anthropic.ToolInputSchemaParam {
 	}
 }
 
+type PathNotPermittedError struct {
+	Path string
+}
+
+func (p PathNotPermittedError) Error() string {
+	return fmt.Sprintf("Error: cannot read %s as it is outside the permitted working directory", p.Path)
+}
+
 //
 // READING FILES
 //
@@ -60,7 +68,14 @@ func ReadFile(input json.RawMessage) (string, error) {
 		panic(err)
 	}
 
-	content, err := os.ReadFile(readFileInput.Path)
+	// TODO make the working directory an environment variable dependent on what the cwd is when agent is executed, hardcoded for now
+	absWorkingDir := "/Users/peripeteia/workspace/github.com/per1Peteia/code-editing-agent/"
+	absTargetPath, err := filepath.Abs(filepath.Join(absWorkingDir, readFileInput.Path))
+	if !strings.HasPrefix(absTargetPath, absWorkingDir) {
+		return "", PathNotPermittedError{readFileInput.Path}
+	}
+
+	content, err := os.ReadFile(absTargetPath)
 	if err != nil {
 		return "", err
 	}
