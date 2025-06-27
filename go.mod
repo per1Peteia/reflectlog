@@ -1,4 +1,4 @@
-module agent
+module github.com/per1Peteia/code-editing-agent
 
 go 1.24.2
 

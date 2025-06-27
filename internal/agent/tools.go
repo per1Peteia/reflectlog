@@ -1,4 +1,4 @@
-package main
+package agent
 
 import (
 	"encoding/json"
@@ -12,6 +12,8 @@ import (
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/invopop/jsonschema"
 )
+
+const absWorkingDir = "/Users/peripeteia/workspace/github.com/per1Peteia/code-editing-agent/"
 
 type ToolDefinition struct {
 	Name        string                                      `json:"name"`
@@ -69,8 +71,11 @@ func ReadFile(input json.RawMessage) (string, error) {
 	}
 
 	// TODO make the working directory an environment variable dependent on what the cwd is when agent is executed, hardcoded for now
-	absWorkingDir := "/Users/peripeteia/workspace/github.com/per1Peteia/code-editing-agent/"
 	absTargetPath, err := filepath.Abs(filepath.Join(absWorkingDir, readFileInput.Path))
+	if err != nil {
+		return "", err
+	}
+
 	if !strings.HasPrefix(absTargetPath, absWorkingDir) {
 		return "", PathNotPermittedError{readFileInput.Path}
 	}
@@ -108,9 +113,16 @@ func ListFiles(input json.RawMessage) (string, error) {
 		panic(err)
 	}
 
-	dir := "."
+	dir := absWorkingDir // TODO i need to make this a configurable or automatically set variable that depends on the current os wd
 	if listFilesInput.Path != "" {
-		dir = listFilesInput.Path
+		dir, err = filepath.Abs(filepath.Join(absWorkingDir, listFilesInput.Path))
+		if err != nil {
+			return "", err
+		}
+	}
+
+	if !strings.HasPrefix(dir, absWorkingDir) {
+		return "", PathNotPermittedError{listFilesInput.Path}
 	}
 
 	var files []string
@@ -182,6 +194,15 @@ func EditFile(input json.RawMessage) (string, error) {
 	// check input validity
 	if editFileInput.Path == "" || editFileInput.OldStr == editFileInput.NewStr {
 		return "", fmt.Errorf("invalid input parameters")
+	}
+
+	absTargetPath, err := filepath.Abs(filepath.Join(absWorkingDir, editFileInput.Path))
+	if err != nil {
+		return "", err
+	}
+
+	if !strings.HasPrefix(absTargetPath, absWorkingDir) {
+		return "", PathNotPermittedError{editFileInput.Path}
 	}
 
 	// read file or create it if it does not exist (new file case)

@@ -8,6 +8,8 @@ import (
 
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/joho/godotenv"
+
+	agent "github.com/per1Peteia/code-editing-agent/internal/agent"
 )
 
 func main() {
@@ -26,10 +28,10 @@ func main() {
 		return scanner.Text(), true
 	}
 
-	tools := []ToolDefinition{ReadFileDefinition, ListFilesDefinition, EditFileDefinition}
-	agent := NewAgent(&client, getUserMessage, tools)
+	tools := []agent.ToolDefinition{agent.ReadFileDefinition, agent.ListFilesDefinition, agent.EditFileDefinition}
+	a := agent.NewAgent(&client, getUserMessage, tools)
 
-	err = agent.Run(context.TODO())
+	err = a.Run(context.TODO())
 	if err != nil {
 		fmt.Printf("Error: %s\n", err.Error())
 	}
