@@ -9,7 +9,7 @@ import (
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/joho/godotenv"
 
-	agent "github.com/per1Peteia/code-editing-agent/internal/agent"
+	agent "github.com/per1Peteia/rfl/internal/agent"
 )
 
 func main() {
