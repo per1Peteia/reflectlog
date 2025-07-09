@@ -80,7 +80,7 @@ func (c *clipCommand) Help() string {
 }
 
 func (c *clipCommand) Synopsis() string {
-	return "clip some information you want to capture, saves it to the db to makes it processable either programmatically or for the agent"
+	return "clip some information you want to capture, saves it to the db to makes it processable in the future either programmatically or for the agent"
 }
 
 func (c *clipCommand) Run(args []string) int {
