@@ -16,4 +16,5 @@ type Clip struct {
 	UpdatedAt time.Time
 	ClipText  string
 	ClipBrief string
+	ClipTitle string
 }

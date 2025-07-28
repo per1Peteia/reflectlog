@@ -8,9 +8,7 @@ import (
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	"github.com/per1Peteia/rfl/internal/config"
 	"github.com/per1Peteia/rfl/internal/database"
-	rflserver "github.com/per1Peteia/rfl/internal/rflserver"
 )
 
 func main() {
@@ -28,21 +26,20 @@ func main() {
 
 	dbQueries := database.New(db)
 
-	cfg := &config.Cfg{
-		DbQueries: dbQueries,
-		HttpPort:  "8080",
+	c := &Cfg{
+		dbQueries,
+		":" + PORT,
 	}
 
-	mux := http.NewServeMux()
-
-	server := &http.Server{
-		Addr:    ":" + cfg.HttpPort,
-		Handler: mux,
+	m := http.NewServeMux()
+	s := &http.Server{
+		Addr:    c.addr,
+		Handler: m,
 	}
 
-	mux.HandleFunc("POST /api/clips", rflserver.CreateChirpHandler(cfg))
+	m.HandleFunc("POST /api/clips", CreateClipHandler(c))
 
-	log.Printf("Serving on port %s", server.Addr)
-	log.Fatal(server.ListenAndServe())
+	log.Printf("serving on port %s\n", PORT)
+	log.Fatal(s.ListenAndServe())
 
 }

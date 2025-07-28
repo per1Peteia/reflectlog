@@ -10,19 +10,20 @@ import (
 )
 
 const createClip = `-- name: createClip :one
-INSERT INTO clips (id, created_at, updated_at, clip_text, clip_brief)
-    VALUES (gen_random_uuid (), now(), now(), $1, $2)
+INSERT INTO clips (id, created_at, updated_at, clip_text, clip_brief, clip_title)
+    VALUES (gen_random_uuid (), now(), now(), $1, $2, $3)
 RETURNING
-    id, created_at, updated_at, clip_text, clip_brief
+    id, created_at, updated_at, clip_text, clip_brief, clip_title
 `
 
 type createClipParams struct {
 	ClipText  string
 	ClipBrief string
+	ClipTitle string
 }
 
 func (q *Queries) createClip(ctx context.Context, arg createClipParams) (Clip, error) {
-	row := q.db.QueryRowContext(ctx, createClip, arg.ClipText, arg.ClipBrief)
+	row := q.db.QueryRowContext(ctx, createClip, arg.ClipText, arg.ClipBrief, arg.ClipTitle)
 	var i Clip
 	err := row.Scan(
 		&i.ID,
@@ -30,13 +31,14 @@ func (q *Queries) createClip(ctx context.Context, arg createClipParams) (Clip, e
 		&i.UpdatedAt,
 		&i.ClipText,
 		&i.ClipBrief,
+		&i.ClipTitle,
 	)
 	return i, err
 }
 
 const getClips = `-- name: getClips :many
 SELECT
-    id, created_at, updated_at, clip_text, clip_brief
+    id, created_at, updated_at, clip_text, clip_brief, clip_title
 FROM
     clips
 ORDER BY
@@ -58,6 +60,7 @@ func (q *Queries) getClips(ctx context.Context) ([]Clip, error) {
 			&i.UpdatedAt,
 			&i.ClipText,
 			&i.ClipBrief,
+			&i.ClipTitle,
 		); err != nil {
 			return nil, err
 		}

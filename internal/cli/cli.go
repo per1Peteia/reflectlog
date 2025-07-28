@@ -32,7 +32,8 @@ func InitCLI() int {
 		// "init": initCommandFactoy,
 		"chat": chatCommandFactory,
 		// "log":  logCommandFactory,
-		"clip": clipCommandFactory,
+		"clip":   clipCommandFactory,
+		"review": reviewCommandFactory,
 	}
 
 	exitStatus, err := c.Run()
