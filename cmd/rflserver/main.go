@@ -26,7 +26,7 @@ func main() {
 
 	dbQueries := database.New(db)
 
-	c := &Cfg{
+	c := &Config{
 		dbQueries,
 		":" + PORT,
 	}
@@ -37,7 +37,8 @@ func main() {
 		Handler: m,
 	}
 
-	m.HandleFunc("POST /api/clips", CreateClipHandler(c))
+	m.HandleFunc("POST /api/clips", createClipHandler(c))
+	m.HandleFunc("GET /api/clips", getClipsHandler(c))
 
 	log.Printf("serving on port %s\n", PORT)
 	log.Fatal(s.ListenAndServe())

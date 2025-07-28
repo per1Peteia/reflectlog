@@ -18,7 +18,7 @@ func chatCommandFactory() (cli.Command, error) {
 type chatCommand struct{}
 
 func (c *chatCommand) Help() string {
-	return chatHelp
+	return ""
 }
 
 func (c *chatCommand) Synopsis() string {
