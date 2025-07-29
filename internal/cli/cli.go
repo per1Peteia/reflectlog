@@ -13,7 +13,7 @@ func defaultCommandFactory() (cli.Command, error) {
 type defaultCommand struct{}
 
 func (c *defaultCommand) Help() string {
-	return rflHelp
+	return ""
 }
 
 func (c *defaultCommand) Synopsis() string {
@@ -32,8 +32,8 @@ func InitCLI() int {
 		// "init": initCommandFactoy,
 		"chat": chatCommandFactory,
 		// "log":  logCommandFactory,
-		"clip":   clipCommandFactory,
-		"review": reviewCommandFactory,
+		"clip": clipCommandFactory,
+		// "review": reviewCommandFactory,
 	}
 
 	exitStatus, err := c.Run()

@@ -9,5 +9,12 @@ const clipSynopsisPrompt = `- You are a seasoned tutor for students.
 - your students can save this information and quickly recall what was notable about the saved information from a learning standpoint 
 - The subject line will also be functioning as a logging statement, to recall what was saved
 - dont use markdown
-- dont start the line with things like "subject:" etc.
+- dont start the line with things like "subject:" or a title phrase followed by ':' etc.
+`
+
+const clipTitlePrompt = `- the text you got sent is a clip of information someone wants to remember or save for further use
+- your task is to find a title for this description/synopsis
+- always reference the programming language
+- use at most 4 words, do not exceed this limit
+- here are some examples: "Interfaces in Go", "Declaration Syntax", "Passing Variables By Value"
 `
