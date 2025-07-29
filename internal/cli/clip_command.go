@@ -1,11 +1,7 @@
 package cli
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 	"os"
 	"os/exec"
 	"strings"
@@ -43,28 +39,11 @@ func (c *clipCommand) Run(args []string) int {
 		return 1
 	}
 
-	body, err := json.Marshal(payload)
+	// hit post clip endpoint
+	_, err = postJSON(payload)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error marshaling JSON: %s\n", err)
+		fmt.Fprintf(os.Stderr, "%v", err)
 		return 1
-	}
-
-	client := &http.Client{Timeout: TIMEOUT}
-	res, err := client.Post(BASE_URL+CREATE_CLIP_URL, "application/json", bytes.NewBuffer(body))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error posting JSON: %v\n", err)
-		return 1
-	}
-	defer res.Body.Close()
-
-	if res.StatusCode != http.StatusOK {
-		data, err := io.ReadAll(res.Body)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error reading response body: %v\n", err)
-			return 1
-		}
-		fmt.Fprintf(os.Stderr, "Server Error (%d): %s\n", res.StatusCode, string(data))
-		return 1 // this could be more accurate
 	}
 
 	return 0
