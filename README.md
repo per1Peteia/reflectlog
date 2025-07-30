@@ -1,13 +1,23 @@
-## ref(lect)log
+# reflectlog
 
-this is a git-integrated agentic CLI tool. I say 'git-integrated' because this is not supposed to be a general purpose coding agent; it has a focus. this project is meant to be an exercise for me as a reflective practitioner, to hone my own understanding of the practice of writing code and what it means for an agentic tool to work with the traces of my own reflexivity while I write code. git can be such a trace. git regularly makes us step back and think about what it actually is what we did (`git commit -m '[...]'`). but there are more traces, implicit stuff about programming as an objectified, sequencialized procedure.
+## quick links
 
-this is as much an exploration of what knowledge/ideas about a program are not sufficiently represented by program text and/or annotated program text (documentation) as it is an exploration of whether or not this "missing" or "shaded" context of programming is retrievable and operationalizable for the programmer and an agentic program. what I can see somewhere down the road: a data structure of my own reflexive approach and some sort of model context protocol that can help LLMs better simulate what I am doing when I write a program. ex post fine-tuning, I guess. but I also have the suspicion that some of these things cannot be expressed at all.
+- [why reflectlog](#why-reflectlog)
+- [how does reflectlog work](#requirements)
+- [specification](#specification)
+- [disclaimer](#disclaimer)
 
-disclaimer:
+## why reflectlog
+this is a git-integrated agentic CLI tool. I say 'git-integrated' because this is not supposed to be a general purpose coding agent; it has a focus. this project is meant to be an exercise for me as a reflective practitioner, to hone my own understanding of the practice of writing code and what it means for an agentic tool to work with the traces of my own reflexivity while I write code. git can be such a trace. git regularly makes us step back and think about what it actually is what we did (`git commit -m '[...]'`). but there are more traces, implicit stuff about programming as an objectified, sequencialized procedure, or, as Donald Schoen used to call it, tacit knowledge.
 
-I am learning to code. this tool is not exactly a tool that I make because it will improve expert performance. I am not an expert. expert performance is about flow, some measure of no-thought, immersion, if you will. learning means a certain load of cognitive surplus work ("what did i just do?", "how does this relate to x/y/z", "did i just learn something?"/"do i know how to do this?", etc. etc.) and this work has output. it should not exclusively happen in your head. you need to write about it, read up on it, think about it, again and again. this is reflexivity. it is us thinking about how we actually learn/work/approach things - loops & feedback, essentially. do you see where this is going? why LLM agency works well in this setting?
- 
+this is as much an exploration of what knowledge/ideas about a program are not sufficiently represented by program text and/or annotated program text as it is an exploration of whether or not this "missing" or "shaded" context of programming is retrievable and operationalizable for the programmer and an agentic program. what I can see somewhere down the road: a data structure of my own reflexive approach and some sort of model context protocol that can help LLMs better simulate what I am doing when I write a program. ex post fine-tuning, I guess. but I also have the suspicion that some of these things cannot be expressed at all.
+
+## requirements
+
+## specification
+
+## disclaimer
+I am learning. this tool is not exactly a tool that I make because it will improve expert performance. I am not an expert. expert performance is about flow, some measure of no-thought, immersion, if you will. learning means a certain load of cognitive surplus ("what did i just do?", "how does this relate to x/y/z", "did i just learn something?"/"do i know how to do this?", etc.) and this work has output. it should not exclusively happen in your head. you need to write about it, read up on it, think about it, again and again. this is reflexivity. it is us thinking about how we actually learn/work/approach things - loops & feedback, essentially.
 
 there are other reasons, too:
 
