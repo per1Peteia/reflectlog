@@ -40,11 +40,12 @@ func (c *clipCommand) Run(args []string) int {
 	}
 
 	// hit post clip endpoint
-	_, err = postJSON(payload)
+	res, err := postJSON(BASE_URL+CREATE_CLIP_URL, payload)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v", err)
 		return 1
 	}
+	res.Body.Close()
 
 	return 0
 }
